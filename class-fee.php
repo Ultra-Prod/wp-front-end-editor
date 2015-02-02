@@ -27,7 +27,7 @@ class FEE {
 	}
 
 	function admin_notices() {
-		echo '<div class="error"><p>' . sprintf( __( '<strong>WordPress Front-end Editor</strong> currently only works between versions %s and %s.' ), self::MIN_VERSION, self::MAX_VERSION ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( '<strong>WordPress Front-end Editor</strong> currently only works between versions %s and %s.' , 'wp-front-end-editor' ) , self::MIN_VERSION, self::MAX_VERSION ) . '</p></div>';
 	}
 
 	function init() {
@@ -57,7 +57,7 @@ class FEE {
 		require_once( ABSPATH . '/wp-admin/includes/post.php' );
 
 		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'update-post_' . $_POST['post_ID'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' ) ) );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' , 'wp-front-end-editor' )  ) );
 		}
 
 		$_POST['post_title'] = strip_tags( $_POST['post_title'] );
@@ -127,7 +127,7 @@ class FEE {
 		check_ajax_referer( 'update-post_' . $_POST['post_ID'] );
 
 		if ( ! current_user_can( 'edit_post', $_POST['post_ID'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' ) ) );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' , 'wp-front-end-editor' )  ) );
 		}
 
 		if ( $_POST['thumbnail_ID'] === '-1' ) {
@@ -256,7 +256,7 @@ class FEE {
 				'relative_urls' => false,
 				'convert_urls' => false,
 				'browser_spellcheck' => true,
-				'placeholder' => apply_filters( 'fee_content_placeholder', __( 'Just write&hellip;' ) ),
+				'placeholder' => apply_filters( 'fee_content_placeholder', __( 'Just write&hellip;' , 'wp-front-end-editor' )  ),
 				'wpeditimage_html5_captions' => current_theme_supports( 'html5', 'caption' )
 			);
 
@@ -281,8 +281,8 @@ class FEE {
 				'taxonomies' => $this->get_tax_and_terms()
 			) );
 			wp_localize_script( 'fee', 'feeL10n', array(
-				'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' ),
-				'title' => apply_filters( 'fee_title_placeholder', __( 'Title' ) )
+				'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' , 'wp-front-end-editor' ) ,
+				'title' => apply_filters( 'fee_title_placeholder', __( 'Title' , 'wp-front-end-editor' )  )
 			) );
 
 			wp_enqueue_media( array( 'post' => $post ) );
@@ -454,7 +454,7 @@ class FEE {
 						'<div class="fee-edit-thumbnail dashicons dashicons-edit"></div>' .
 						'<div class="fee-remove-thumbnail dashicons dashicons-no-alt"></div>' .
 					'</div>' .
-					'<div class="fee-insert-thumbnail wp-core-ui"><span class="dashicons dashicons-plus-alt"></span> ' . __( 'Add a featured image' ) . '</div>' .
+					'<div class="fee-insert-thumbnail wp-core-ui"><span class="dashicons dashicons-plus-alt"></span> ' . __( 'Add a featured image' , 'wp-front-end-editor' )  . '</div>' .
 				'</div>'
 			);
 		}
@@ -534,7 +534,7 @@ class FEE {
 			$wp_admin_bar->add_node( array(
 				'parent' => 'edit',
 				'id' => 'edit-in-admin',
-				'title' => __( 'Edit in admin' ),
+				'title' => __( 'Edit in admin' , 'wp-front-end-editor' ) ,
 				'href' => get_edit_post_link( $current_object->ID )
 			) );
 
@@ -630,7 +630,7 @@ class FEE {
 						$visibility = 'password';
 					} elseif ( $post_type == 'post' && is_sticky( $post->ID ) ) {
 						$visibility = 'sticky';
-						$visibility_trans = __( 'Public, Sticky' );
+						$visibility_trans = __( 'Public, Sticky' , 'wp-front-end-editor' ) ;
 					} else {
 						$visibility = 'public';
 					}
@@ -725,36 +725,36 @@ class FEE {
 
 		$messages['post'] = array(
 			 0 => '', // Unused. Messages start at index 1.
-			 1 => __( 'Post updated.' ),
-			 2 => __( 'Custom field updated.' ),
-			 3 => __( 'Custom field deleted.' ),
-			 4 => __( 'Post updated.' ),
+			 1 => __( 'Post updated.' , 'wp-front-end-editor' ) ,
+			 2 => __( 'Custom field updated.' , 'wp-front-end-editor' ) ,
+			 3 => __( 'Custom field deleted.' , 'wp-front-end-editor' ) ,
+			 4 => __( 'Post updated.' , 'wp-front-end-editor' ) ,
 			/* translators: %s: date and time of the revision */
-			 5 => isset( $revision_id ) ? sprintf( __( 'Post restored to revision from %s' ), wp_post_revision_title( (int) $revision_id, false ) ) : false,
-			 6 => __( 'Post published.' ),
-			 7 => __( 'Post saved.' ),
-			 8 => __( 'Post submitted.' ),
-			 9 => sprintf( __( 'Post scheduled for: <strong>%1$s</strong>.' ),
+			 5 => isset( $revision_id ) ? sprintf( __( 'Post restored to revision from %s' , 'wp-front-end-editor' ) , wp_post_revision_title( (int) $revision_id, false ) ) : false,
+			 6 => __( 'Post published.' , 'wp-front-end-editor' ) ,
+			 7 => __( 'Post saved.' , 'wp-front-end-editor' ) ,
+			 8 => __( 'Post submitted.' , 'wp-front-end-editor' ) ,
+			 9 => sprintf( __( 'Post scheduled for: <strong>%1$s</strong>.' , 'wp-front-end-editor' ) ,
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
-			10 => __( 'Post draft updated.' )
+				date_i18n( __( 'M j, Y @ G:i' , 'wp-front-end-editor' ) , strtotime( $post->post_date ) ) ),
+			10 => __( 'Post draft updated.' , 'wp-front-end-editor' )
 		);
 
 		$messages['page'] = array(
 			 0 => '', // Unused. Messages start at index 1.
-			 1 => __( 'Page updated.' ),
-			 2 => __( 'Custom field updated.' ),
-			 3 => __( 'Custom field deleted.' ),
-			 4 => __( 'Page updated.' ),
-			 5 => isset( $revision_id ) ? sprintf( __( 'Page restored to revision from %s' ), wp_post_revision_title( (int) $revision_id, false ) ) : false,
-			 6 => __( 'Page published.' ),
-			 7 => __( 'Page saved.' ),
-			 8 => __( 'Page submitted.' ),
-			 9 => sprintf( __( 'Page scheduled for: <strong>%1$s</strong>.' ), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
-			10 => __( 'Page draft updated.' )
+			 1 => __( 'Page updated.' , 'wp-front-end-editor' ) ,
+			 2 => __( 'Custom field updated.' , 'wp-front-end-editor' ) ,
+			 3 => __( 'Custom field deleted.' , 'wp-front-end-editor' ) ,
+			 4 => __( 'Page updated.' , 'wp-front-end-editor' ) ,
+			 5 => isset( $revision_id ) ? sprintf( __( 'Page restored to revision from %s' , 'wp-front-end-editor' ) , wp_post_revision_title( (int) $revision_id, false ) ) : false,
+			 6 => __( 'Page published.' , 'wp-front-end-editor' ) ,
+			 7 => __( 'Page saved.' , 'wp-front-end-editor' ) ,
+			 8 => __( 'Page submitted.' , 'wp-front-end-editor' ) ,
+			 9 => sprintf( __( 'Page scheduled for: <strong>%1$s</strong>.' , 'wp-front-end-editor' ) , date_i18n( __( 'M j, Y @ G:i' , 'wp-front-end-editor' ) , strtotime( $post->post_date ) ) ),
+			10 => __( 'Page draft updated.' , 'wp-front-end-editor' )
 		);
 
-		$messages['attachment'] = array_fill( 1, 10, __( 'Media attachment updated.' ) ); // Hack, for now.
+		$messages['attachment'] = array_fill( 1, 10, __( 'Media attachment updated.' , 'wp-front-end-editor' )  ); // Hack, for now.
 
 		$messages = apply_filters( 'post_updated_messages', $messages );
 
@@ -774,7 +774,7 @@ class FEE {
 		if ( $autosave && mysql2date( 'U', $autosave->post_modified_gmt, false ) > mysql2date( 'U', $post->post_modified_gmt, false ) ) {
 			foreach ( _wp_post_revision_fields() as $autosave_field => $_autosave_field ) {
 				if ( normalize_whitespace( $autosave->$autosave_field ) !== normalize_whitespace( $post->$autosave_field ) ) {
-					return sprintf( __( 'There is an autosave of this post that is more recent than the version below. <a href="%s">View the autosave</a>' ), get_edit_post_link( $autosave->ID ) );
+					return sprintf( __( 'There is an autosave of this post that is more recent than the version below. <a href="%s">View the autosave</a>' , 'wp-front-end-editor' ) , get_edit_post_link( $autosave->ID ) );
 				}
 			}
 
