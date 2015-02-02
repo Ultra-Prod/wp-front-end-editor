@@ -1,0 +1,291 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Front-end Editor v1.0.0-beta1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-02 16:05+0100\n"
+"PO-Revision-Date: 2015-02-02 16:05+0100\n"
+"Last-Translator: Mike Castro Demaria <mcd@supersonique.net>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ default
+#: class-fee.php:30
+#, php-format
+msgid ""
+"<strong>WordPress Front-end Editor</strong> currently only works between "
+"versions %s and %s."
+msgstr ""
+"<strong>L’éditeur live WordPress</strong> ne fonctionne actuellement "
+"qu'entre les versions %s et %s."
+
+# @ default
+#: class-fee.php:60 class-fee.php:130
+msgid "You are not allowed to edit this item."
+msgstr "Vous n’êtes pas autorisé à éditer ce contenu"
+
+# @ default
+#: class-fee.php:259
+msgid "Just write&hellip;"
+msgstr "Ecrivez&hellip;"
+
+# @ default
+#: class-fee.php:284 class-fee.php:667
+msgid "The changes you made will be lost if you navigate away from this page."
+msgstr "Le changement que vous faites sera perdu si vous sortez de cette page."
+
+# @ default
+#: class-fee.php:285
+msgid "Title"
+msgstr "Titre"
+
+# @ default
+#: class-fee.php:457
+msgid "Add a featured image"
+msgstr "Ajouter une image à la une"
+
+# @ default
+#: class-fee.php:537
+msgid "Edit in admin"
+msgstr "Editer en admin"
+
+# @ default
+#: class-fee.php:556
+msgid ""
+"<strong>Connection lost.</strong> Saving has been disabled until you&#8217;"
+"re reconnected."
+msgstr ""
+"<strong>Connexion perdue.</strong> la sauvegarde a été désactivée tant que "
+"vous ne vous reconnectez pas."
+
+#  default
+#: class-fee.php:557
+msgid "We&#8217;re backing up this post in your browser, just in case."
+msgstr "Nous sauvegarder ce poste dans votre navigateur , juste au cas où ."
+
+# @ default
+#: class-fee.php:563
+msgid ""
+"The backup of this post in your browser is different from the version below."
+msgstr ""
+"La sauvegarde de cet article dans votre navigateur est différente de la "
+"version ci-dessous. "
+
+# @ default
+#: class-fee.php:563
+msgid "Restore the backup."
+msgstr "Restaurer une sauvegarde"
+
+# @ default
+#: class-fee.php:566
+msgid "Post restored successfully."
+msgstr "l’article a été restaurées."
+
+# @ default
+#: class-fee.php:566
+msgid "Undo."
+msgstr "Annuler."
+
+# @ default
+#: class-fee.php:578
+msgid "Save Draft"
+msgstr "Sauvegarder le brouillon..."
+
+# @ default
+#: class-fee.php:580
+msgid "Save as Pending"
+msgstr "Sauvegarder en attente de relecture ..."
+
+# @ default
+#: class-fee.php:587
+msgid "Schedule"
+msgstr "Planning"
+
+# @ default
+#: class-fee.php:589
+msgid "Publish"
+msgstr "Publié"
+
+# @ default
+#: class-fee.php:592
+msgid "Submit for Review"
+msgstr "Envoyer pour relecture"
+
+# @ default
+#: class-fee.php:595
+msgid "Update"
+msgstr "Mettre à jour"
+
+# @ default
+#: class-fee.php:608
+msgid "Published"
+msgstr "Publier"
+
+# @ default
+#: class-fee.php:610
+msgid "Privately Published"
+msgstr "Publié privé"
+
+# @ default
+#: class-fee.php:612
+msgid "Scheduled"
+msgstr "Plannifié"
+
+# @ default
+#: class-fee.php:615
+msgid "Pending Review"
+msgstr "En attente de relecture"
+
+# @ default
+#: class-fee.php:618 class-fee.php:620
+msgid "Draft"
+msgstr "Brouillon"
+
+# @ default
+#: class-fee.php:633 class-fee.php:642
+msgid "Public, Sticky"
+msgstr "Public, mis en avant"
+
+# @ default
+#: class-fee.php:641
+msgid "Public"
+msgstr "Public"
+
+# @ default
+#: class-fee.php:643
+msgid "Password protected"
+msgstr "Protégé par mot de passe"
+
+# @ default
+#: class-fee.php:644
+msgid "Private"
+msgstr "Privé"
+
+# @ default
+#: class-fee.php:670
+msgid "Save and leave"
+msgstr "Sauvegarder et quitter..."
+
+# @ default
+#: class-fee.php:672
+msgid "Update and leave"
+msgstr "Mettre à jour et quitter..."
+
+# @ default
+#: class-fee.php:695 class-fee.php:702
+msgid "Close"
+msgstr "Fermé"
+
+# @ default
+#: class-fee.php:728 class-fee.php:731
+msgid "Post updated."
+msgstr "Article mis à jour!"
+
+# @ default
+#: class-fee.php:729 class-fee.php:746
+msgid "Custom field updated."
+msgstr "Champs personnalisés mis à jour!"
+
+# @ default
+#: class-fee.php:730 class-fee.php:747
+msgid "Custom field deleted."
+msgstr "Champs personnalisés effacé!"
+
+# @ default
+#: class-fee.php:733
+#, php-format
+msgid "Post restored to revision from %s"
+msgstr "Révision de l’article restauré à partir de %s"
+
+# @ default
+#: class-fee.php:734
+msgid "Post published."
+msgstr "Article publié"
+
+# @ default
+#: class-fee.php:735
+msgid "Post saved."
+msgstr "Article sauvegardé."
+
+# @ default
+#: class-fee.php:736
+msgid "Post submitted."
+msgstr "Article envoyé"
+
+# @ default
+#: class-fee.php:737
+#, php-format
+msgid "Post scheduled for: <strong>%1$s</strong>."
+msgstr "Article prévu pour le: <strong>%1$s</strong>."
+
+# @ default
+#: class-fee.php:739 class-fee.php:753
+msgid "M j, Y @ G:i"
+msgstr "F j, Y @ g:i a"
+
+# @ default
+#: class-fee.php:740
+msgid "Post draft updated."
+msgstr "Brouillon d'article mis à jour."
+
+# @ default
+#: class-fee.php:745 class-fee.php:748
+msgid "Page updated."
+msgstr "Page mise à jour."
+
+# @ default
+#: class-fee.php:749
+#, php-format
+msgid "Page restored to revision from %s"
+msgstr "Révision de la page restauré à partir de %s"
+
+# @ default
+#: class-fee.php:750
+msgid "Page published."
+msgstr "Page publié"
+
+# @ default
+#: class-fee.php:751
+msgid "Page saved."
+msgstr "Page sauvegardée."
+
+# @ default
+#: class-fee.php:752
+msgid "Page submitted."
+msgstr "Page envoyé"
+
+# @ default
+#: class-fee.php:753
+#, php-format
+msgid "Page scheduled for: <strong>%1$s</strong>."
+msgstr "Page prévu pour le: <strong>%1$s</strong>."
+
+# @ default
+#: class-fee.php:754
+msgid "Page draft updated."
+msgstr "Brouillon de page mis à jour!"
+
+# @ default
+#: class-fee.php:757
+msgid "Media attachment updated."
+msgstr "Média lié mis à jour!"
+
+# @ default
+#: class-fee.php:777
+#, php-format
+msgid ""
+"There is an autosave of this post that is more recent than the version "
+"below. <a href=\"%s\">View the autosave</a>"
+msgstr ""
+"Il y a une version sauvegardée automatiquement de cet article plus récente "
+"que la version au-dessous. <a href=\"%s\">Voir la version sauvegardée "
+"automatiquement</a>"
