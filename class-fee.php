@@ -1,7 +1,7 @@
 <?php
 
 class FEE {
-	const VERSION = '1.0.0-beta1.2';
+	const VERSION = '1.0.0-beta1.3';
 	const MIN_VERSION = '4.0';
 	const MAX_VERSION = '4.2-beta';
 
@@ -22,6 +22,9 @@ class FEE {
 
 		add_post_type_support( 'post', 'front-end-editor' );
 		add_post_type_support( 'page', 'front-end-editor' );
+
+		load_plugin_textdomain( 'wp-front-end-editor', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+
 
 		add_action( 'init', array( $this, 'init' ) );
 	}
