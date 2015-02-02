@@ -1,7 +1,7 @@
 <?php
 
 class FEE {
-	const VERSION = '1.0.0-beta1.1';
+	const VERSION = '1.0.0-beta1.3';
 	const MIN_VERSION = '4.0';
 	const MAX_VERSION = '4.2-beta';
 
@@ -23,11 +23,14 @@ class FEE {
 		add_post_type_support( 'post', 'front-end-editor' );
 		add_post_type_support( 'page', 'front-end-editor' );
 
+		load_plugin_textdomain( 'wp-front-end-editor', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+
+
 		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	function admin_notices() {
-		echo '<div class="error"><p>' . sprintf( __( '<strong>WordPress Front-end Editor</strong> currently only works between versions %s and %s.' ), self::MIN_VERSION, self::MAX_VERSION ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( '<strong>WordPress Front-end Editor</strong> currently only works between versions %s and %s.' , 'wp-front-end-editor' ), self::MIN_VERSION, self::MAX_VERSION ) . '</p></div>';
 	}
 
 	function init() {
@@ -57,7 +60,7 @@ class FEE {
 		require_once( ABSPATH . '/wp-admin/includes/post.php' );
 
 		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'update-post_' . $_POST['post_ID'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' ) ) );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' , 'wp-front-end-editor' ) ) );
 		}
 
 		$_POST['post_title'] = strip_tags( $_POST['post_title'] );
@@ -127,7 +130,7 @@ class FEE {
 		check_ajax_referer( 'update-post_' . $_POST['post_ID'] );
 
 		if ( ! current_user_can( 'edit_post', $_POST['post_ID'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' ) ) );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to edit this item.' , 'wp-front-end-editor' ) ) );
 		}
 
 		if ( $_POST['thumbnail_ID'] === '-1' ) {
@@ -256,7 +259,7 @@ class FEE {
 				'relative_urls' => false,
 				'convert_urls' => false,
 				'browser_spellcheck' => true,
-				'placeholder' => apply_filters( 'fee_content_placeholder', __( 'Just write&hellip;' ) ),
+				'placeholder' => apply_filters( 'fee_content_placeholder', __( 'Just write&hellip;' , 'wp-front-end-editor' ) ),
 				'wpeditimage_html5_captions' => current_theme_supports( 'html5', 'caption' )
 			);
 
@@ -281,8 +284,8 @@ class FEE {
 				'taxonomies' => $this->get_tax_and_terms()
 			) );
 			wp_localize_script( 'fee', 'feeL10n', array(
-				'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' ),
-				'title' => apply_filters( 'fee_title_placeholder', __( 'Title' ) )
+				'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' , 'wp-front-end-editor' ),
+				'title' => apply_filters( 'fee_title_placeholder', __( 'Title' , 'wp-front-end-editor' ) )
 			) );
 
 			wp_enqueue_media( array( 'post' => $post ) );
@@ -454,7 +457,7 @@ class FEE {
 						'<div class="fee-edit-thumbnail dashicons dashicons-edit"></div>' .
 						'<div class="fee-remove-thumbnail dashicons dashicons-no-alt"></div>' .
 					'</div>' .
-					'<div class="fee-insert-thumbnail wp-core-ui"><span class="dashicons dashicons-plus-alt"></span> ' . __( 'Add a featured image' ) . '</div>' .
+					'<div class="fee-insert-thumbnail wp-core-ui"><span class="dashicons dashicons-plus-alt"></span> ' . __( 'Add a featured image' , 'wp-front-end-editor' ) . '</div>' .
 				'</div>'
 			);
 		}
@@ -534,7 +537,7 @@ class FEE {
 			$wp_admin_bar->add_node( array(
 				'parent' => 'edit',
 				'id' => 'edit-in-admin',
-				'title' => __( 'Edit in admin' ),
+				'title' => __( 'Edit in admin' , 'wp-front-end-editor' ),
 				'href' => get_edit_post_link( $current_object->ID )
 			) );
 
@@ -553,17 +556,17 @@ class FEE {
 		<div class="wp-core-ui">
 			<div id="fee-notice-area" class="wp-core-ui">
 				<div id="lost-connection-notice" class="error hidden">
-					<p><span class="spinner"></span> <?php _e( '<strong>Connection lost.</strong> Saving has been disabled until you&#8217;re reconnected.' ); ?>
-					<span class="hide-if-no-sessionstorage"><?php _e( 'We&#8217;re backing up this post in your browser, just in case.' ); ?></span>
+					<p><span class="spinner"></span> <?php _e( '<strong>Connection lost.</strong> Saving has been disabled until you&#8217;re reconnected.' , 'wp-front-end-editor' ); ?>
+					<span class="hide-if-no-sessionstorage"><?php _e( 'We&#8217;re backing up this post in your browser, just in case.' , 'wp-front-end-editor' ); ?></span>
 					</p>
 				</div>
 			</div>
 			<div id="local-storage-notice" class="hidden">
 				<p class="local-restore">
-					<?php _e( 'The backup of this post in your browser is different from the version below.' ); ?> <a class="restore-backup" href="#"><?php _e( 'Restore the backup.' ); ?></a>
+					<?php _e( 'The backup of this post in your browser is different from the version below.' , 'wp-front-end-editor' ); ?> <a class="restore-backup" href="#"><?php _e( 'Restore the backup.' , 'wp-front-end-editor' ); ?></a>
 				</p>
 				<p class="undo-restore hidden">
-					<?php _e( 'Post restored successfully.' ); ?> <a class="undo-restore-backup" href="#"><?php _e( 'Undo.' ); ?></a>
+					<?php _e( 'Post restored successfully.' , 'wp-front-end-editor' ); ?> <a class="undo-restore-backup" href="#"><?php _e( 'Undo.' , 'wp-front-end-editor' ); ?></a>
 				</p>
 				<div class="dashicons dashicons-dismiss"></div>
 			</div>
@@ -575,24 +578,24 @@ class FEE {
 					<?php } ?>
 
 					<?php if ( ! in_array( $post->post_status, array( 'publish', 'future', 'pending' ) ) ) { ?>
-						<button <?php if ( 'private' == $post->post_status ) { ?>style="display:none"<?php } ?> class="button button-large fee-save"><?php _e( 'Save Draft' ); ?></button>
+						<button <?php if ( 'private' == $post->post_status ) { ?>style="display:none"<?php } ?> class="button button-large fee-save"><?php _e( 'Save Draft' , 'wp-front-end-editor' ); ?></button>
 					<?php } elseif ( 'pending' === $post->post_status && $can_publish ) { ?>
-						<button class="button button-large fee-save"><?php _e( 'Save as Pending' ); ?></button>
+						<button class="button button-large fee-save"><?php _e( 'Save as Pending' , 'wp-front-end-editor' ); ?></button>
 					<?php } ?>
 
 					<div class="button-group">
 						<?php if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 === $post->ID ) { ?>
 							<?php if ( $can_publish ) { ?>
 								<?php if ( ! empty($post->post_date_gmt ) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) { ?>
-									<button class="button button-primary button-large fee-publish"><?php _e( 'Schedule' ); ?></button>
+									<button class="button button-primary button-large fee-publish"><?php _e( 'Schedule' , 'wp-front-end-editor' ); ?></button>
 								<?php } else { ?>
-									<button class="button button-primary button-large fee-publish"><?php _e( 'Publish' ); ?></button>
+									<button class="button button-primary button-large fee-publish"><?php _e( 'Publish' , 'wp-front-end-editor' ); ?></button>
 								<?php } ?>
 							<?php } else { ?>
-								<button class="button button-primary button-large fee-publish"><?php _e( 'Submit for Review' ); ?></button>
+								<button class="button button-primary button-large fee-publish"><?php _e( 'Submit for Review' , 'wp-front-end-editor' ); ?></button>
 							<?php } ?>
 						<?php } else { ?>
-							<button class="button button-primary button-large fee-save"><?php _e( 'Update' ); ?></button>
+							<button class="button button-primary button-large fee-save"><?php _e( 'Update' , 'wp-front-end-editor' ); ?></button>
 						<?php } ?>
 						<button class="button button-primary button-large fee-publish-options" style="padding: 0 2px 2px 1px;">
 							<div class="dashicons dashicons-arrow-down"></div>
@@ -605,19 +608,19 @@ class FEE {
 					<div class="dashicons dashicons-post-status" style="margin-top: 5px;"></div>
 					<select id="fee-post-status">
 						<?php if ( 'publish' === $post->post_status ) { ?>
-							<option<?php selected( $post->post_status, 'publish' ); ?> value="publish"><?php _e( 'Published' ); ?></option>
+							<option<?php selected( $post->post_status, 'publish' ); ?> value="publish"><?php _e( 'Published' , 'wp-front-end-editor' ); ?></option>
 						<?php } elseif ( 'private' === $post->post_status ) { ?>
-							<option<?php selected( $post->post_status, 'private' ); ?> value="publish"><?php _e( 'Privately Published' ); ?></option>
+							<option<?php selected( $post->post_status, 'private' ); ?> value="publish"><?php _e( 'Privately Published' , 'wp-front-end-editor' ); ?></option>
 						<?php } elseif ( 'future' === $post->post_status ) { ?>
-							<option<?php selected( $post->post_status, 'future' ); ?> value="future"><?php _e( 'Scheduled' ); ?></option>
+							<option<?php selected( $post->post_status, 'future' ); ?> value="future"><?php _e( 'Scheduled' , 'wp-front-end-editor' ); ?></option>
 						<?php } ?>
 
-						<option<?php selected( $post->post_status, 'pending' ); ?> value="pending"><?php _e( 'Pending Review' ); ?></option>
+						<option<?php selected( $post->post_status, 'pending' ); ?> value="pending"><?php _e( 'Pending Review' , 'wp-front-end-editor' ); ?></option>
 
 						<?php if ( 'auto-draft' === $post->post_status ) { ?>
-							<option<?php selected( $post->post_status, 'auto-draft' ); ?> value="draft"><?php _e( 'Draft' ); ?></option>
+							<option<?php selected( $post->post_status, 'auto-draft' ); ?> value="draft"><?php _e( 'Draft' , 'wp-front-end-editor' ); ?></option>
 						<?php } else { ?>
-							<option<?php selected( $post->post_status, 'draft' ); ?> value="draft"><?php _e( 'Draft' ); ?></option>
+							<option<?php selected( $post->post_status, 'draft' ); ?> value="draft"><?php _e( 'Draft' , 'wp-front-end-editor' ); ?></option>
 						<?php } ?>
 					</select>
 				</label>
@@ -630,7 +633,7 @@ class FEE {
 						$visibility = 'password';
 					} elseif ( $post_type == 'post' && is_sticky( $post->ID ) ) {
 						$visibility = 'sticky';
-						$visibility_trans = __( 'Public, Sticky' );
+						$visibility_trans = __( 'Public, Sticky' , 'wp-front-end-editor' );
 					} else {
 						$visibility = 'public';
 					}
@@ -638,10 +641,10 @@ class FEE {
 					<label for="fee-post-visibility">
 						<div class="dashicons dashicons-visibility" style="margin-top: 5px;"></div>
 						<select id="fee-post-visibility">
-							<option<?php selected( $visibility, 'public' ); ?> value="public"><?php _e( 'Public' ); ?></option>
-							<option<?php selected( $visibility, 'sticky' ); ?> value="sticky"><?php _e( 'Public, Sticky' ); ?></option>
-							<option<?php selected( $visibility, 'password' ); ?> value="password"><?php _e( 'Password protected' ); ?></option>
-							<option<?php selected( $visibility, 'private' ); ?> value="private"><?php _e( 'Private' ); ?></option>
+							<option<?php selected( $visibility, 'public' ); ?> value="public"><?php _e( 'Public' , 'wp-front-end-editor' ); ?></option>
+							<option<?php selected( $visibility, 'sticky' ); ?> value="sticky"><?php _e( 'Public, Sticky' , 'wp-front-end-editor' ); ?></option>
+							<option<?php selected( $visibility, 'password' ); ?> value="password"><?php _e( 'Password protected' , 'wp-front-end-editor' ); ?></option>
+							<option<?php selected( $visibility, 'private' ); ?> value="private"><?php _e( 'Private' , 'wp-front-end-editor' ); ?></option>
 						</select>
 						<div<?php  echo $visibility === 'password' ? '' : ' style="display: none;"'; ?>>
 							<div class="dashicons dashicons-admin-network" style="margin-top: 5px;"></div>
@@ -664,12 +667,12 @@ class FEE {
 			</div>
 			<div class="fee-alert fee-leave">
 				<div class="fee-alert-body">
-					<p><?php _e( 'The changes you made will be lost if you navigate away from this page.' ); ?></p>
+					<p><?php _e( 'The changes you made will be lost if you navigate away from this page.' , 'wp-front-end-editor' ); ?></p>
 					<button class="button fee-cancel">Cancel</button>
 					<?php if ( in_array( $post->post_status, array( 'auto-draft', 'draft', 'pending' ) ) ) { ?>
-						<button class="button fee-save-and-exit"><?php _e( 'Save and leave' ); ?></button>
+						<button class="button fee-save-and-exit"><?php _e( 'Save and leave' , 'wp-front-end-editor' ); ?></button>
 					<?php } else { ?>
-						<button class="button fee-save-and-exit"><?php _e( 'Update and leave' ); ?></button>
+						<button class="button fee-save-and-exit"><?php _e( 'Update and leave' , 'wp-front-end-editor' ); ?></button>
 					<?php } ?>
 					<button class="button button-primary fee-exit">Leave</button>
 				</div>
@@ -692,14 +695,14 @@ class FEE {
 						<div class="modal-dialog modal-sm">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button data-dismiss="modal" style="float: right;"><span aria-hidden="true">&times;</span><span class="sr-only"><?php _e( 'Close' ); ?></span></button>
+									<button data-dismiss="modal" style="float: right;"><span aria-hidden="true">&times;</span><span class="sr-only"><?php _e( 'Close' , 'wp-front-end-editor' ); ?></span></button>
 									<div class="modal-title" id="myModalLabel"><?php echo $taxonomy->labels->name; ?></div>
 								</div>
 								<div class="modal-body">
 									<?php call_user_func( $taxonomy->meta_box_cb, $post, array( 'args' => array( 'taxonomy' => $tax_name ) ) ); ?>
 								</div>
 								<div class="modal-footer">
-									<button class="button button-primary" data-dismiss="modal"><?php _e( 'Close' ); ?></button>
+									<button class="button button-primary" data-dismiss="modal"><?php _e( 'Close' , 'wp-front-end-editor' ); ?></button>
 								</div>
 							</div>
 						</div>
@@ -725,36 +728,36 @@ class FEE {
 
 		$messages['post'] = array(
 			 0 => '', // Unused. Messages start at index 1.
-			 1 => __( 'Post updated.' ),
-			 2 => __( 'Custom field updated.' ),
-			 3 => __( 'Custom field deleted.' ),
-			 4 => __( 'Post updated.' ),
+			 1 => __( 'Post updated.' , 'wp-front-end-editor' ),
+			 2 => __( 'Custom field updated.' , 'wp-front-end-editor' ),
+			 3 => __( 'Custom field deleted.' , 'wp-front-end-editor' ),
+			 4 => __( 'Post updated.' , 'wp-front-end-editor' ),
 			/* translators: %s: date and time of the revision */
-			 5 => isset( $revision_id ) ? sprintf( __( 'Post restored to revision from %s' ), wp_post_revision_title( (int) $revision_id, false ) ) : false,
-			 6 => __( 'Post published.' ),
-			 7 => __( 'Post saved.' ),
-			 8 => __( 'Post submitted.' ),
-			 9 => sprintf( __( 'Post scheduled for: <strong>%1$s</strong>.' ),
+			 5 => isset( $revision_id ) ? sprintf( __( 'Post restored to revision from %s' , 'wp-front-end-editor' ), wp_post_revision_title( (int) $revision_id, false ) ) : false,
+			 6 => __( 'Post published.' , 'wp-front-end-editor' ),
+			 7 => __( 'Post saved.' , 'wp-front-end-editor' ),
+			 8 => __( 'Post submitted.' , 'wp-front-end-editor' ),
+			 9 => sprintf( __( 'Post scheduled for: <strong>%1$s</strong>.' , 'wp-front-end-editor' ),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
-			10 => __( 'Post draft updated.' )
+				date_i18n( __( 'M j, Y @ G:i' , 'wp-front-end-editor' ), strtotime( $post->post_date ) ) ),
+			10 => __( 'Post draft updated.' , 'wp-front-end-editor' )
 		);
 
 		$messages['page'] = array(
 			 0 => '', // Unused. Messages start at index 1.
-			 1 => __( 'Page updated.' ),
-			 2 => __( 'Custom field updated.' ),
-			 3 => __( 'Custom field deleted.' ),
-			 4 => __( 'Page updated.' ),
-			 5 => isset( $revision_id ) ? sprintf( __( 'Page restored to revision from %s' ), wp_post_revision_title( (int) $revision_id, false ) ) : false,
-			 6 => __( 'Page published.' ),
-			 7 => __( 'Page saved.' ),
-			 8 => __( 'Page submitted.' ),
-			 9 => sprintf( __( 'Page scheduled for: <strong>%1$s</strong>.' ), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
-			10 => __( 'Page draft updated.' )
+			 1 => __( 'Page updated.' , 'wp-front-end-editor' ),
+			 2 => __( 'Custom field updated.' , 'wp-front-end-editor' ),
+			 3 => __( 'Custom field deleted.' , 'wp-front-end-editor' ),
+			 4 => __( 'Page updated.' , 'wp-front-end-editor' ),
+			 5 => isset( $revision_id ) ? sprintf( __( 'Page restored to revision from %s' , 'wp-front-end-editor' ), wp_post_revision_title( (int) $revision_id, false ) ) : false,
+			 6 => __( 'Page published.' , 'wp-front-end-editor' ),
+			 7 => __( 'Page saved.' , 'wp-front-end-editor' ),
+			 8 => __( 'Page submitted.' , 'wp-front-end-editor' ),
+			 9 => sprintf( __( 'Page scheduled for: <strong>%1$s</strong>.' , 'wp-front-end-editor' ), date_i18n( __( 'M j, Y @ G:i' , 'wp-front-end-editor' ), strtotime( $post->post_date ) ) ),
+			10 => __( 'Page draft updated.' , 'wp-front-end-editor' )
 		);
 
-		$messages['attachment'] = array_fill( 1, 10, __( 'Media attachment updated.' ) ); // Hack, for now.
+		$messages['attachment'] = array_fill( 1, 10, __( 'Media attachment updated.' , 'wp-front-end-editor' ) ); // Hack, for now.
 
 		$messages = apply_filters( 'post_updated_messages', $messages );
 
@@ -774,7 +777,7 @@ class FEE {
 		if ( $autosave && mysql2date( 'U', $autosave->post_modified_gmt, false ) > mysql2date( 'U', $post->post_modified_gmt, false ) ) {
 			foreach ( _wp_post_revision_fields() as $autosave_field => $_autosave_field ) {
 				if ( normalize_whitespace( $autosave->$autosave_field ) !== normalize_whitespace( $post->$autosave_field ) ) {
-					return sprintf( __( 'There is an autosave of this post that is more recent than the version below. <a href="%s">View the autosave</a>' ), get_edit_post_link( $autosave->ID ) );
+					return sprintf( __( 'There is an autosave of this post that is more recent than the version below. <a href="%s">View the autosave</a>' , 'wp-front-end-editor' ), get_edit_post_link( $autosave->ID ) );
 				}
 			}
 
